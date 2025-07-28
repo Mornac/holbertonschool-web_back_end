@@ -8,7 +8,7 @@ Return the sum of a + b
 """
 
 
-def add(a, b):
+def add(a:float, b:float) -> float:
     """
     Definition of function add of 2 floats
     """

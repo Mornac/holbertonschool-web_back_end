@@ -12,4 +12,4 @@ def add(a, b):
     """
     Definition of function add of 2 floats
     """
-    return (a + b)
+    return a + b

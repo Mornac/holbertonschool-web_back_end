@@ -14,7 +14,7 @@ def measure_time(n: int, max_delay: int) -> float:
     """
     Params:
         n: int
-        max_delay: float
+        max_delay: int
     Return: a float: total_time / n
     """
 

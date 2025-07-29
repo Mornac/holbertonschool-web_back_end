@@ -1,7 +1,6 @@
-#!usr/bin/env python3
+#!/usr/bin/env python3
 """
-Function that creates a measure_time with integers as arguments
-that measures the total execution time and should return a float
+Function that measures total execution time and should return a float
 """
 
 import asyncio
@@ -19,12 +18,11 @@ def measure_time(n: int, max_delay: int) -> float:
     """
 
     start_time = time.time()
-    end_time = time.time()
     asyncio.run(wait_n(n, max_delay))
-    
+    end_time = time.time()
+
     return (end_time - start_time) / n
 
 
 if __name__ == "__main__":
-    measure_time()
-
+    measure_time(5, 9)

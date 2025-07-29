@@ -18,12 +18,8 @@ def measure_time(n: int, max_delay: int) -> float:
     Return: a float: total_time / n
     """
 
-    started = time.time()
+    start = time.time()
     asyncio.run(wait_n(n, max_delay))
-    finished = time.time()
+    finish = time.time()
 
-    return (finished - started) / n
-
-
-if __name__ == "__main__":
-    measure_time(5, 9)
+    return (finish - start) / n

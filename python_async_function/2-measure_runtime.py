@@ -7,7 +7,7 @@ thas measures the total execution time and should return a float
 import asyncio
 import time
 
-wait_n =__import__("1-concurrent_coroutines").wait_n
+wait_n = __import__("1-concurrent_coroutines").wait_n
 
 
 def measure_time(n: int, max_delay: int) -> float:
@@ -26,4 +26,4 @@ def measure_time(n: int, max_delay: int) -> float:
 
 
 if __name__ == "__main__":
-    measure_time(5, 5)
+    measure_time(5, 9)

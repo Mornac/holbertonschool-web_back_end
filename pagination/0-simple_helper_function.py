@@ -6,6 +6,7 @@ to return in a list for those particular pagination parameters
 """
 from typing import Union, Tuple
 
+
 def index_range(page, page_size) -> Union[tuple[int, int], None]:
     """
     Params:

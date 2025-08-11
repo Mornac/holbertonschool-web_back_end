@@ -75,7 +75,7 @@ class Server:
 
         return {
             "page_size": page_size,
-            "page":  page,
+            "page": page,
             "data": my_dataset[0:],
             "next_page": None if len(my_dataset) < page_size else page + 1,
             "prev_page": None if page <= 1 else page - 1,

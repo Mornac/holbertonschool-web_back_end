@@ -13,5 +13,5 @@ def index_range(page, page_size) -> Union[tuple[int, int], None]:
         page_size: number of elements in the page
     Return a start index and an end index in a list
     """
-
-    return (page * page_size - page_size, page * page_size)
+    if (page and page_size):
+        return (page * page_size - page_size, page * page_size)

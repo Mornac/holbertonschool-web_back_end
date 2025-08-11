@@ -13,5 +13,6 @@ def index_range(page, page_size):
         page_size: number of elements in the page
     Return a start index and an end index in a list
     """
-    
+    page += 0;
+
     return (page, page_size)

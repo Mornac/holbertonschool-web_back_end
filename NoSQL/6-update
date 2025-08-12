@@ -1,5 +1,8 @@
-// Deletes all documents with name "Holberton school" in the collection school
+// Adds a new attribute to a document in the collection school
 // Database name passed as option of mongo command
-db.school.deleteMany({
+db.school.updateOne ({
     name: "Holberton school"
-})
+},
+{   $set: {
+       address: "972 Mission street"
+}})

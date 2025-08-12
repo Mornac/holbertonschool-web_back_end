@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+"""
+Function that returns the list of school having a specific topic
+"""
+
+
+def schools_by_topic(mongo_collection, topic):
+    """
+    mongo_collection: pymongo collection object
+    topic: topic searched, string
+    Returns the list of school
+    """
+    return mongo_collection.list(
+        {"topics": topic}
+    )

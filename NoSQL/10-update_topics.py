@@ -11,4 +11,7 @@ def update_topics(mongo_collection, name, topics):
     name: school name to update, string
     topics: list of topics approached in the school, list of strings
     """
-    return mongo_collection.update_many(name, topics)
+    return mongo_collection.update_many(
+        {"name": name},
+        {"$set": {"topics": topics}}
+    )

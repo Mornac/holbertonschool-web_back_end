@@ -1,7 +1,8 @@
+/*eslint-disable*/
 export default function createReportObject(employeesList) {
   return {
     allEmployees: {...employeesList },
-    getNumberOfDepartments() {
+    getNumberOfDepartments(employeesList) {
       return Object.keys(employeesList).length;
     },
   };

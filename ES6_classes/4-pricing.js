@@ -28,13 +28,13 @@ export default class Pricing {
     }
     set currency(newCurrency) {
         if (!(newCurrency instanceof Currency)) {
-            throw new TypeError('Currency must be an instance of Currency');
+            throw new TypeError('currency must be an instance of Currency');
         }
         this._currency = newCurrency;
     }
 
     displayFullPrice() {
-        return `${this._amount} ${this._currency.name} (${this._currency.code})`;
+        return `${this.amount} ${this.currency.name} (${this.currency.code})`;
     }
 
     static ConvertPrice(amount, conversionRate) {

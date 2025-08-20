@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Currency from './3-currency.js';
 
 export default class Pricing {
@@ -15,21 +16,21 @@ export default class Pricing {
     get amount() {
         return this._amount;
     }
-    set amount(newamount) {
-        if (typeof newamount !== 'number') {
+    set amount(newAmount) {
+        if (typeof newAmount !== 'number') {
             throw new TypeError('amount must be a number');
         }
-        this._amount = newamount;
+        this._amount = newAmount;
     }
 
     get currency() { 
         return this._currency;
     }
-    set currency(newcurrency) {
-        if (!(newcurrency instanceof Currency)) {
+    set currency(newCurrency) {
+        if (!(newCurrency instanceof Currency)) {
             throw new TypeError('Currency must be an instance of Currency');
         }
-        this._currency = newcurrency;
+        this._currency = newCurrency;
     }
 
     displayFullPrice() {

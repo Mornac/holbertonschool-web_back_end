@@ -2,39 +2,41 @@
 import Currency from './3-currency';
 
 export default class Pricing {
-    constructor(amount, currency) {
-        this.amount = amount;
-        this.currency = currency;
-    }
+  constructor(amount, currency) {
+    this.amount = amount;
+    this.currency = currency;
+  }
 
-    get amount() {
-        return this._amount;
-    }
-    set amount(newAmount) {
-        if (typeof newAmount !== 'number') {
-            throw new TypeError('amount must be a number');
-        }
-        this._amount = newAmount;
-    }
+  get amount() {
+    return this._amount;
+  }
 
-    get currency() {
-        return this._currency;
+  set amount(newAmount) {
+    if (typeof newAmount !== 'number') {
+      throw new TypeError('amount must be a number');
     }
-    set currency(newCurrency) {
-        if (!(newCurrency instanceof Currency)) {
-            throw new TypeError('currency must be an instance of Currency');
-        }
-        this._currency = newCurrency;
-    }
+    this._amount = newAmount;
+  }
 
-    displayFullPrice() {
-        return `${this._amount} ${this._currency.name} (${this._currency.code})`;
-    }
+  get currency() {
+    return this._currency;
+  }
 
-    static ConvertPrice(amount, conversionRate) {
-        if (typeof amount !== 'number' || typeof conversionRate !== 'number') {
-            throw new TypeError('Both amount and conversionRate must be numbers');
-        }
-        return amount * conversionRate;
-   }
+  set currency(newCurrency) {
+    if (!(newCurrency instanceof Currency)) {
+      throw new TypeError('currency must be an instance of Currency');
+    }
+    this._currency = newCurrency;
+  }
+
+  displayFullPrice() {
+    return `${this._amount} ${this._currency.name} (${this._currency.code})`;
+  }
+
+  static ConvertPrice(amount, conversionRate) {
+    if (typeof amount !== 'number' || typeof conversionRate !== 'number') {
+      throw new TypeError('Both amount and conversionRate must be numbers');
+    }
+    return amount * conversionRate;
+  }
 }

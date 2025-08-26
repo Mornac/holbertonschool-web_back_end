@@ -1,5 +1,5 @@
 /* eslint-disable */
-export default function handleResponseFromAPI(promise) {
+export default function handleResponseFromAPI() {
   return new Promise((resolve) => {
     if (resolve === true) {
       resolve({ status: 200, body: 'success' });

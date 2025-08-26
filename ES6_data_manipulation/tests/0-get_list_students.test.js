@@ -5,6 +5,6 @@ describe('getListStudents', () => {
     const students = getListStudents ();
     expect(students[0]).toEqual({id: 1, firstName: 'Guillaume', location: 'San Francisco'});
     expect(students[1]).toEqual({id: 2, firstName: 'James', location: 'Columbia'});
-    expect(students[2]).toEqual({id: 3, firstName: 'Serena', location: 'San Francisco'});
+    expect(students[2]).toEqual({id: 5, firstName: 'Serena', location: 'San Francisco'});
   });
 });

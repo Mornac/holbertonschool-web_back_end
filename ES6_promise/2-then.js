@@ -1,12 +1,13 @@
 /* eslint-disable */
 export default function handleResponseFromAPI() {
-  return new Promise((resolve) => {
-    if (resolve === true) {
+  return Promise(resolve)
+    .then(() => {
       resolve({ status: 200, body: 'success' });
-    } else {
-      new Error('The fake API is not working currently');
-    }
-
-    console.log('Got a response from the API');
-  });
+    })
+    .catch(() => {
+      resolve('The fake API is not working currently');
+    })
+    .finally(() => {
+      console.log('Got a response from the API');
+    });
 }

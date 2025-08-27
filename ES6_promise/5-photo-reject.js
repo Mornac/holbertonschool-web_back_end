@@ -1,6 +1,4 @@
 /* eslint-disable */
-export default function uploadPhoto() {
-  return new Promise((reject) => {
-    reject(new Error('<rejected> Error: $fileName cannot be processed)'));
-  });
-};
+export default function uploadPhoto(fileName) {
+  return Promise.reject(new Error(`${fileName} cannot be processed)`));
+}

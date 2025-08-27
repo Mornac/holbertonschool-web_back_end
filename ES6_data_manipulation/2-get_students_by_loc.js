@@ -1,7 +1,4 @@
 /* eslint-disable */
-export default function getStudentsByLocation() {
-  return [
-    {id: 1, firstName: 'Guillaume', location: 'San Francisco'},
-    {id: 5, firstName: 'Serena', location: 'San Francisco'}
-  ];
-};
+export default function getStudentsByLocation(students, city) {
+  return students.filter((student) => student.location === city);
+}

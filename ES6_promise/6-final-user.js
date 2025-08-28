@@ -12,12 +12,12 @@ export default function handleProfileSignup(firstname, lastname, filename) {
       if (result.status === 'fulfilled') {
         return {
           status: result.status,
-          value: result.value
+          value: result.value,
         };
       } else {
         return {
           status: result.status,
-          value: result.reason
+          value: result.reason,
         };
       }
     });

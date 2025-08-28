@@ -1,15 +1,16 @@
-/* eslint-disable */
-import signUpUser from './4-user-promise.js';
 import uploadPhoto from './5-photo-reject.js';
+import signUpUser from './4-user-promise.js';
 
-export default async function handleProfileSignup(firstname, lastname, filename) {
+export default async function handleProfileSignup(
+  firstName,
+  lastName,
+  fileName,
+) {
   return Promise.allSettled([
-    signUpUser(firstname, lastname),
-    uploadPhoto(filename),
-  ])
-  .then((results) =>
-    results.map((result) => ({
-      status: result.status,
-      value: result.status === 'fulfilled' ? result.value : result.reason,
-    })));
-  }
+    signUpUser(firstName, lastName),
+    uploadPhoto(fileName),
+  ]).then((responses) => responses.map((response) => ({
+    status: response.status,
+    value: response.status === 'fulfilled' ? response.value : response.reason,
+  })));
+}

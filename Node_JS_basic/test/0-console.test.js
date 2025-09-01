@@ -1,7 +1,7 @@
-const maFonction = require('../0-console.js');
+const diplayMessage = require('../0-console.js');
 
-describe('maFonction', function() {
+describe('diplayMessage', function() {
     it('should work', function() {
-        maFonction('test input');
+        diplayMessage('Hello NodeJS!');
     });
 });

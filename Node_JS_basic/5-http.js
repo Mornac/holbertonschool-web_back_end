@@ -1,5 +1,6 @@
 const http = require('http');
 const countStudents = require('./3-read_file_async');
+const { error } = require('console');
 
 const app = http.createServer((request, response) => {
   response.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -7,13 +8,12 @@ const app = http.createServer((request, response) => {
   if (request.url === '/') {
     response.end('Hello Holberton School!');
   } else if (request.url === '/students') {
-    const database = process.argv[2];
-    countStudents(database)
+    countStudents('database.csv')
       .then((output) => {
         response.end(`This is the list of our students\n${output}`);
       })
-      .catch((err) => {
-        response.end(`This is the list of our students\n${err.message}`);
+      .catch((error) => {
+        response.end(`This is the list of our students\n${output}`);
       });
   } else {
     response.writeHead(404);
@@ -21,6 +21,8 @@ const app = http.createServer((request, response) => {
   }
 });
 
-app.listen(1245);
+app.listen(1245), () => {
+  console.log(`Server running at http://localhost:1245/`)
+};
 
 module.exports = app;

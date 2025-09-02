@@ -4,12 +4,10 @@ function countStudents(path) {
   let data;
   try {
     data = fs.readFileSync(path, 'utf-8');
-  } catch(error) {
+  } catch (error) {
     throw new Error('Cannot load the database');
-  };
-
+  }
   const lines = data.split('\n').filter(line => line.trim() !== '');
-
   if (lines.length <= 1) {
     console.log('Number of students: 0');
     return;

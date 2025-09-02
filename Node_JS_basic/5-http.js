@@ -1,7 +1,7 @@
 const http = require('http');
 const countStudents = require('./3-read_file_async');
 
-const server = http.createServer((request, response) => {
+const app = http.createServer((request, response) => {
   response.writeHead(200, { 'Content-Type': 'text/plain' });
 
   if (request.url === '/') {
@@ -21,6 +21,6 @@ const server = http.createServer((request, response) => {
   }
 });
 
-server.listen(1245);
+app.listen(1245);
 
-module.exports = server;
+module.exports = app;

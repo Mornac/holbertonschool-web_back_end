@@ -5,6 +5,7 @@ const app = http.createServer((request, response) => {
   response.writeHead(200, { 'Content-Type': 'text/plain' });
 
   if (request.url === '/students') {
+    output = require(database);
     countStudents(process.argv[2])
       .then((output) => {
         response.end(`This is the list of our students\n${output}`);

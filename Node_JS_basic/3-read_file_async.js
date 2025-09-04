@@ -46,7 +46,7 @@ async function countStudents(path) {
       for (const field in fieldGroups) {
         const students = fieldGroups[field];
 
-        console.log(`Number of students in ${field}: ${students.length}`);
+        console.log(`Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`);
 
         result += `\nNumber of students in ${field}: ${students.length}. List: ${students.join(', ')}`;
       }

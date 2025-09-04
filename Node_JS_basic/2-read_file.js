@@ -7,7 +7,7 @@ function countStudents(path) {
   } catch (error) {
     throw new Error('Cannot load the database');
   }
-  const lines = data.split('\n').filter((line => line.trim() !== ''));
+  const lines = data.split('\n').filter(((line) => line.trim() !== ''));
   if (lines.length <= 1) {
     console.log('Number of students: 0');
     return;
@@ -18,13 +18,13 @@ function countStudents(path) {
   const fieldGroups = {};
 
   studentLines.forEach(line);
-    const studentData = line.split(',');
+  const studentData = line.split(',');
 
-    if (studentData.length >= 4) {
-      const firstname = studentData[0].trim();
-      const lastname = studentData[1].trim();
-      const age = studentData[2].trim();
-      const field = studentData[3].trim();
+  if (studentData.length >= 4) {
+    const firstname = studentData[0].trim();
+    const lastname = studentData[1].trim();
+    const age = studentData[2].trim();
+    const field = studentData[3].trim();
 
     if (firstname && lastname && age && field) {
       totalStudents++;
@@ -36,16 +36,15 @@ function countStudents(path) {
       fieldGroups[field].push(firstname);
     }
   }
-};
+}
 
+console.log(`Number of students: ${totalStudents}`);
 
-  console.log('Number of students: ' + totalStudents);
-
-  for (const field in fieldGroups) {
-    const students = fieldGroups[field];
-    console.log(
-      'Number of students in ' + field + ': ' + students.length + '. List: ' + students.join(', ')
-    );
-  }
+for (const field in fieldGroups) {
+  const students = fieldGroups[field];
+  console.log(
+    `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`,
+  );
+}
 
 module.exports = countStudents;

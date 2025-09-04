@@ -10,12 +10,12 @@ class StudentsController {
       throw new Error('Cannot load the database');
     }
 
-    const lines = data.split('\n').filter(line => line.trim() !== '');
+    const lines = data.split('\n').filter((line) => line.trim() !== '');
     const studentLines = lines.slice(1);
     const fieldGroups = {};
 
-    studentLines.forEach(line => {
-      const [firstname, lastname, age, field] = line.split(',').map(el => el.trim());
+    studentLines.forEach((line) => {
+      const [firstname, lastname, age, field] = line.split(',').map((el) => el.trim());
       if (firstname && field) {
         if (!fieldGroups[field]) fieldGroups[field] = [];
         fieldGroups[field].push(firstname);
@@ -25,7 +25,7 @@ class StudentsController {
     return fieldGroups;
   }
 
-static async getAllStudents(request, response) {
+  static async getAllStudents(request, response) {
     const database = process.argv[2];
     try {
       const fieldGroups = await StudentsController.readDatabase(database);
@@ -33,7 +33,7 @@ static async getAllStudents(request, response) {
       let output = 'This is the list of our students\n';
       Object.keys(fieldGroups)
         .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
-        .forEach(field => {
+        .forEach((field) => {
           output += `Number of students in ${field}: ${fieldGroups[field].length}. List: ${fieldGroups[field].join(', ')}\n`;
         });
 

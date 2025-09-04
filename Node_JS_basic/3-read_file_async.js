@@ -8,7 +8,7 @@ async function countStudents(path) {
         return;
       }
 
-      const lines = data.split('\n').filter(line => line.trim() !== '');
+      const lines = data.split('\n').filter((line) => line.trim() !== '');
 
       if (lines.length <= 1) {
         console.log('Number of students: 0');
@@ -28,7 +28,7 @@ async function countStudents(path) {
           const field = studentData[3].trim();
 
           if (firstname && lastname && age && field) {
-            totalStudents++;
+            totalStudents += 1;
 
             if (!fieldGroups[field]) {
               fieldGroups[field] = [];
@@ -46,14 +46,7 @@ async function countStudents(path) {
       for (const field in fieldGroups) {
         const students = fieldGroups[field];
 
-        console.log(
-          'Number of students in ' +
-            field +
-            ': ' +
-            students.length +
-            '. List: ' +
-            students.join(', ')
-        );
+        console.log(`Number of students in ${field}: ${students.length}`);
 
         result += `\nNumber of students in ${field}: ${students.length}. List: ${students.join(', ')}`;
       }

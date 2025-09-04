@@ -1,4 +1,4 @@
-const diplayMessage = require('../0-console.js');
+const diplayMessage = require('../0-console');
 
 describe('diplayMessage', () => {
   it('should work', () => {

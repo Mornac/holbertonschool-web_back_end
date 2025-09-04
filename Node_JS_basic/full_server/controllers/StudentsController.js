@@ -1,111 +1,64 @@
-const { response } = require("express");
+import fs from 'fs';
 
 class StudentsController {
-  static getAllStudents(request, response) {
-    response.status(200);
-  }
-
   static async readDatabase(database) {
     console.log('This is the list of our students');
     let data;
-
     try {
-      data = await fs.readFile(database, 'utf-8');
+      data = await fs.promises.readFile(database, 'utf-8');
     } catch (err) {
       throw new Error('Cannot load the database');
     }
 
     const lines = data.split('\n').filter(line => line.trim() !== '');
-
-    if (lines.length <= 1) {
-      console.log('Number of students: 0');
-      return;
-    }
-
     const studentLines = lines.slice(1);
-    let totalStudents = 0;
     const fieldGroups = {};
 
     studentLines.forEach(line => {
-      const studentData = line.split(',');
-
-      if (studentData.length >= 4) {
-        const firstname = studentData[0].trim();
-        const lastname = studentData[1].trim();
-        const age = studentData[2].trim();
-        const field = studentData[3].trim();
-
-        if (firstname && lastname && age && field) {
-          totalStudents++;
-
-          if (!fieldGroups[field]) {
-            fieldGroups[field] = [];
-          }
-
-          fieldGroups[field].push(firstname);
-        }
+      const [firstname, lastname, age, field] = line.split(',').map(el => el.trim());
+      if (firstname && field) {
+        if (!fieldGroups[field]) fieldGroups[field] = [];
+        fieldGroups[field].push(firstname);
       }
     });
 
-    console.log('Number of students: ' + totalStudents);
+    return fieldGroups;
+  }
 
-    for (const field in fieldGroups) {
-      const students = fieldGroups[field];
-      console.log(
-        'Number of students in ' + field + ': ' + students.length + '. List: ' + students.join(', ')
-      );
+static async getAllStudents(request, response) {
+    const database = process.argv[2];
+    try {
+      const fieldGroups = await StudentsController.readDatabase(database);
+
+      let output = 'This is the list of our students\n';
+      Object.keys(fieldGroups)
+        .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+        .forEach(field => {
+          output += `Number of students in ${field}: ${fieldGroups[field].length}. List: ${fieldGroups[field].join(', ')}\n`;
+        });
+
+      response.status(200).send(output.trim());
+    } catch (err) {
+      response.status(500).send('Cannot load the database');
     }
   }
 
   static getAllStudentsByMajor(request, response) {
-    response.status(200);
-    request.params(major)
-    const major = fieldGroups['CS', 'SWE'];
-  }
+    const database = process.argv[2];
+    const { major } = request.params;
 
-  static async readDatabase(database) {
-    console.log('This is the list of our students');
-    let data;
+    if (!['CS', 'SWE'].includes(major)) {
+      return response.status(500).send('Major parameter must be CS or SWE');
+    }
 
     try {
-      data = await fs.readFile(database, 'utf-8');
+      const fieldGroups = StudentsController.readDatabase(database);
+      const students = fieldGroups[major] || [];
+      res.status(200).send(`List: ${students.join(', ')}`);
     } catch (err) {
-      throw new Error('Cannot load the database');
-      response.status(500);
+      response.status(500).send('Cannot load the database');
     }
-
-    const lines = data.split('\n').filter(line => line.trim() !== '');
-
-    if (lines.length <= 1) {
-      console.log('Number of students: 0');
-      return;
-    }
-
-    const studentLines = lines.slice(1);
-    let totalStudents = 0;
-    const fieldGroups = {};
-
-    studentLines.forEach(line => {
-      const studentData = line.split(',');
-
-      if (studentData.length >= 4) {
-        const firstname = studentData[0].trim();
-        const lastname = studentData[1].trim();
-        const age = studentData[2].trim();
-        const field = studentData[3].trim();
-
-        if (firstname && lastname && age && field) {
-          totalStudents++;
-
-          if (!fieldGroups[field]) {
-            fieldGroups[field] = [];
-          }
-
-          fieldGroups[field].push(firstname);
-        }
-      }
-    });
   }
 }
 
-module.exports = AppController;
+export default StudentsController;

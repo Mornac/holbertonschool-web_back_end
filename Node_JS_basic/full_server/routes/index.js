@@ -1,6 +1,11 @@
-const express = require('express'),
-const router = express.Router();
+import { Router } from 'express';
+import AppController from '../controllers/AppController.js';
+import StudentsController from '../controllers/StudentsController.js';
 
-router.get('/', AppController);
-router.get('/students', StudentsController);
-router.get('/students/:major', StudentsController);
+const router = Router();
+
+router.get('/', AppController.getHomepage);
+router.get('/students', StudentsController.getAllStudents);
+router.get('/students/:major', StudentsController.getAllStudentsByMajor);
+
+export default router;

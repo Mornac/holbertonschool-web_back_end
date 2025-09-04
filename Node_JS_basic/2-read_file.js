@@ -36,7 +36,6 @@ function countStudents(path) {
 
     console.log(`Number of students: ${totalStudents}`);
 
-    // Boucler proprement sur un objet → Object.keys
     Object.keys(fieldGroups).forEach((field) => {
       const students = fieldGroups[field];
       console.log(

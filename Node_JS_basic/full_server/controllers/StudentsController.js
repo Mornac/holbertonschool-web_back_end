@@ -15,7 +15,7 @@ class StudentsController {
     const fieldGroups = {};
 
     studentLines.forEach((line) => {
-      const [firstname, lastname, age, field] = line.split(',').map((el) => el.trim());
+      const [firstname, field] = line.split(',').map((el) => el.trim());
       if (firstname && field) {
         if (!fieldGroups[field]) fieldGroups[field] = [];
         fieldGroups[field].push(firstname);
@@ -37,9 +37,9 @@ class StudentsController {
           output += `Number of students in ${field}: ${fieldGroups[field].length}. List: ${fieldGroups[field].join(', ')}\n`;
         });
 
-      response.status(200).send(output.trim());
+      return response.status(200).send(output.trim());
     } catch (err) {
-      response.status(500).send('Cannot load the database');
+      return response.status(500).send('Cannot load the database');
     }
   }
 
@@ -54,9 +54,9 @@ class StudentsController {
     try {
       const fieldGroups = StudentsController.readDatabase(database);
       const students = fieldGroups[major] || [];
-      res.status(200).send(`List: ${students.join(', ')}`);
+      return response.status(200).send(`List: ${students.join(', ')}`);
     } catch (err) {
-      response.status(500).send('Cannot load the database');
+      return response.status(500).send('Cannot load the database');
     }
   }
 }

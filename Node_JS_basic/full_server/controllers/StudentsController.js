@@ -4,11 +4,12 @@ class StudentsController {
   static async getAllStudents(request, response) {
     const database = process.argv[2];
     try {
-      const fieldGroups = await StudentsController.readDatabase(database);
+      const fieldGroups = await readDatabase(database);
       console.log(fieldGroups);
 
       let output = 'This is the list of our students\n';
       const fieldarray = Object.keys(fieldGroups).sort();
+
       for (const field of fieldarray) {
         const stud = fieldGroups[field];
         output += `Number of students in ${field}: ${stud.length}. List: ${stud.join(', ')}\n`;
@@ -20,7 +21,7 @@ class StudentsController {
     }
   }
 
-  static getAllStudentsByMajor(request, response) {
+  static async getAllStudentsByMajor(request, response) {
     const database = process.argv[2];
     const { major } = request.params;
 
@@ -29,7 +30,7 @@ class StudentsController {
     }
 
     try {
-      const fieldGroups = StudentsController.readDatabase(database);
+      const fieldGroups = await readDatabase(database);
       const students = fieldGroups[major] || [];
       return response.status(200).send(`List: ${students.join(', ')}`);
     } catch (err) {

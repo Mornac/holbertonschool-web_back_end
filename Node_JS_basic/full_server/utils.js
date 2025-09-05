@@ -33,6 +33,7 @@ async function readDatabase(path) {
         }
       });
 
+      console.log(`Number of students: ${totalStudents}`);
       console.log(fieldGroups);
       resolve(fieldGroups);
     });

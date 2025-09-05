@@ -1,41 +1,18 @@
-import fs from 'fs';
+import readDatabase from '../utils';
 
 class StudentsController {
-  static async readDatabase(database) {
-    console.log('This is the list of our students');
-    let data;
-    try {
-      data = await fs.promises.readFile(database, 'utf-8');
-    } catch (err) {
-      throw new Error('Cannot load the database');
-    }
-
-    const lines = data.split('\n').filter((line) => line.trim() !== '');
-    const studentLines = lines.slice(1);
-    const fieldGroups = {};
-
-    studentLines.forEach((line) => {
-      const [firstname, field] = line.split(',').map((el) => el.trim());
-      if (firstname && field) {
-        if (!fieldGroups[field]) fieldGroups[field] = [];
-        fieldGroups[field].push(firstname);
-      }
-    });
-
-    return fieldGroups;
-  }
-
   static async getAllStudents(request, response) {
     const database = process.argv[2];
     try {
       const fieldGroups = await StudentsController.readDatabase(database);
+      console.log(fieldGroups);
 
       let output = 'This is the list of our students\n';
-      Object.keys(fieldGroups)
-        .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
-        .forEach((field) => {
-          output += `Number of students in ${field}: ${fieldGroups[field].length}. List: ${fieldGroups[field].join(', ')}\n`;
-        });
+      const fieldarray = Object.keys(fieldGroups).sort();
+      for (const field of fieldarray) {
+        const stud = fieldGroups[field];
+        output += `Number of students in ${field}: ${stud.length}. List: ${stud.join(', ')}\n`;
+      }
 
       return response.status(200).send(output.trim());
     } catch (err) {

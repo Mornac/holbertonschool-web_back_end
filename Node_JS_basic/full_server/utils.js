@@ -1,54 +1,42 @@
-const fs = require('fs').promises;
+const fs = require('node:fs');
 
 async function readDatabase(path) {
-  let data;
-
-  try {
-    data = await fs.readFile(path, 'utf-8');
-  } catch (err) {
-    throw new Error('Cannot load the database');
-  }
-
-  const lines = data.split('\n').filter((line) => line.trim() !== '');
-
-  if (lines.length <= 1) {
-    console.log('Number of students: 0');
-    return;
-  }
-
-  const studentLines = lines.slice(1);
-  let totalStudents = 0;
-  const fieldGroups = {};
-
-  studentLines.forEach((line) => {
-    const studentData = line.split(',');
-
-    if (studentData.length >= 4) {
-      const firstname = studentData[0].trim();
-      const lastname = studentData[1].trim();
-      const age = studentData[2].trim();
-      const field = studentData[3].trim();
-
-      if (firstname && lastname && age && field) {
-        totalStudents += 1;
-
-        if (!fieldGroups[field]) {
-          fieldGroups[field] = [];
-        }
-
-        fieldGroups[field].push(firstname);
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, 'utf-8', (err, data) => {
+      if (err) {
+        reject(new Error('Cannot load the database'));
+        return;
       }
-    }
+
+      const lines = data.split('\n').filter((line) => line.trim() !== '');
+      if (lines.length <= 1) {
+        console.log('Number of students: 0');
+        resolve({});
+        return;
+      }
+
+      const studentLines = lines.slice(1);
+      let totalStudents = 0;
+      const fieldGroups = {};
+
+      studentLines.forEach((line) => {
+        const studentData = line.split(',').map((el) => el.trim());
+        const firstname = studentData[0];
+        const field = studentData[3];
+
+        if (firstname && field) {
+          totalStudents += 1;
+          if (!fieldGroups[field]) {
+            fieldGroups[field] = [];
+          }
+          fieldGroups[field].push(firstname);
+        }
+      });
+
+      console.log(fieldGroups);
+      resolve(fieldGroups);
+    });
   });
-
-  console.log(`Number of students: ${totalStudents}`);
-
-  for (const field of fieldGroups) {
-    const students = fieldGroups[field];
-    console.log(
-      `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}`,
-    );
-  }
 }
 
 module.exports = readDatabase;

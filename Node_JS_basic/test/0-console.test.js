@@ -1,7 +1,14 @@
-const diplayMessage = require('../0-console');
+const displayMessage = require('../0-console');
 
-describe('diplayMessage', () => {
-  it('should work', () => {
-    diplayMessage('Hello NodeJS!');
+describe('displayMessage', () => {
+  it('should log the correct message', () => {
+    expect.assertions(1);
+
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+
+    displayMessage('Hello NodeJS!');
+
+    expect(consoleSpy).toHaveBeenCalledWith('Hello NodeJS!');
+    consoleSpy.mockRestore();
   });
 });
